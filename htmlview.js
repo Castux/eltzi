@@ -18,12 +18,16 @@ HTMLView = function(game)
 
 HTMLView.prototype.makeBlock = function(block)
 {
+	var game = this.game;
 	var dom = document.createElement("div");
 
 	dom.classList.add("block");
 	dom.classList.add("block-" + block.value);
-
 	dom.innerHTML = block.value;
+	dom.addEventListener("transitionend", function()
+	{
+		game.blockMoved(block);
+	});
 
 	this.grid.appendChild(dom);
 	

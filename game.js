@@ -113,6 +113,7 @@ Game.prototype.stepFalling = function()
 			}
 
 			this.moveBlock(u + 1, v, block);
+			block.state = "falling";
 		}
 	}
 };
@@ -132,6 +133,7 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 	if(side == null)
 	{
 		this.moveBlock(u, v + dir, this.lastSpawned);
+		this.lastSpawned.state = "sliding";
 	}
 };
 
@@ -152,9 +154,17 @@ Game.prototype.drop = function()
 	if(lastFree > 0)
 	{
 		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
+		this.lastSpawned.state = "falling";
 		this.lastSpawned = null;
 	}
-}
+};
+
+Game.prototype.blockMoved = function(block)
+{
+	// TODO: check merging!
+	console.log("Block moved: " + block.value);
+	block.state = "idle";
+};
 
 Game.prototype.printGrid = function()
 {
@@ -170,6 +180,6 @@ Game.prototype.printGrid = function()
 	}
 
 	console.log(res);
-}
+};
 
 var game = new Game(5, 7);
