@@ -26,7 +26,7 @@ Game = function(w, h)
 
 	// view
 
-	this.html = new HTMLView();
+	this.html = new HTMLView(this);
 };
 
 Game.prototype.spawnBlock = function()
@@ -173,6 +173,3 @@ Game.prototype.printGrid = function()
 }
 
 var game = new Game(5, 7);
-
-game.spawnBlock();
-game.printGrid();
