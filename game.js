@@ -23,6 +23,10 @@ Game = function(w, h)
 	// shortcut
 
 	this.lastSpawned = null;
+
+	// view
+
+	this.html = new HTMLView();
 };
 
 Game.prototype.spawnBlock = function()
@@ -37,7 +41,8 @@ Game.prototype.spawnBlock = function()
 	this.lastSpawned = block;
 
 	// TODO: check if already full --> endgame
-	// TODO: spawn DOM
+	
+	this.html.makeBlock(block);
 };
 
 Game.prototype.getBlock = function(u,v)
@@ -157,3 +162,6 @@ Game.prototype.printGrid = function()
 }
 
 var game = new Game(5, 7);
+
+game.spawnBlock();
+game.printGrid();
