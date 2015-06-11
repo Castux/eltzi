@@ -19,6 +19,10 @@ Game = function(w, h)
 			this.grid[row].push(null);
 		}
 	}
+
+	// shortcut
+
+	this.lastSpawned = null;
 };
 
 Game.prototype.spawnBlock = function()
@@ -30,7 +34,7 @@ Game.prototype.spawnBlock = function()
 	block.v = Math.floor(this.w / 2);
 
 	this.grid[block.u][block.v] = block;
-	this.falling = block;
+	this.lastSpawned = block;
 
 	// TODO: check if already full --> endgame
 	// TODO: spawn DOM
@@ -50,6 +54,8 @@ Game.prototype.moveBlock = function(u,v, block)
 	block.u = u;
 	block.v = v;
 	this.grid[block.u][block.v] = block;
+
+	// TODO: update DOM
 };
 
 
@@ -86,10 +92,30 @@ Game.prototype.stepFalling = function()
 
 			var down = this.getBlock(u + 1, v);
 			if(down != null)
+			{
+				if(block == this.lastSpawned)
+					this.lastSpawned = null;
+
 				continue;
+			}
 
 			this.moveBlock(u + 1, v, block);
 		}
+	}
+};
+
+Game.prototype.slide = function(dir)	// -1, +1 (left, right)
+{
+	if(this.lastSpawned == null)
+		return;
+
+	var u = this.lastSpawned.u;
+	var v = this.lastSpawned.v;
+
+	var side = this.getBlock(u, v + dir);
+	if(side == null)
+	{
+		this.moveBlock(u, v + dir, this.lastSpawned);
 	}
 };
 
