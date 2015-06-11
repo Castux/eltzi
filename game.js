@@ -76,7 +76,7 @@ Game.prototype.getNeighbors = function(u,v)
 Game.prototype.stepFalling = function()
 {
 	for(var u = this.h - 2 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
-											// (whole propagation), and skip last row
+											// (hole propagation), and skip last row
 	{
 		for(var v = 0 ; v < this.w ; v++)
 		{
@@ -95,8 +95,18 @@ Game.prototype.stepFalling = function()
 
 Game.prototype.printGrid = function()
 {
+	var res = "";
 	for(var u = 0; u < this.h ; u++)
-		console.log(this.grid[u]);
+	{
+		for(var v = 0 ; v < this.w ; v++)
+		{
+			var block = this.getBlock(u,v);
+			res += (block != null ? block.value : ".") + " ";
+		}
+		res += "\n";
+	}
+
+	console.log(res);
 }
 
 var game = new Game(5, 7);
