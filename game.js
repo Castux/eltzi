@@ -119,6 +119,27 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 	}
 };
 
+Game.prototype.drop = function()
+{
+	if(this.lastSpawned == null)
+		return;
+
+	var lastFree = -1;
+	for(var u = this.lastSpawned.u + 1 ; u < this.h ; u++)
+	{
+		if(this.getBlock(u, this.lastSpawned.v) == null)
+			lastFree = u;
+		else
+			break;
+	}
+
+	if(lastFree > 0)
+	{
+		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
+		this.lastSpawned = null;
+	}
+}
+
 Game.prototype.printGrid = function()
 {
 	var res = "";
