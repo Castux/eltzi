@@ -1,5 +1,6 @@
 #grid
 {
+	position: absolute;
 	width: 500px;
 	height: 700px;
 	background-color: #eee;
@@ -9,7 +10,11 @@
 {
 	width: 100px;
 	height: 100px;
-	position: relative;
+	position: absolute;
+	background-color: blue;
+	text-align: center;
+	line-height: 100px;
+	font-size: 55px;
 
-	transition: transform 0.2s ease;
+	transition: left 0.1s, top 0.1s;
 }

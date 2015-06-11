@@ -34,14 +34,22 @@ Game.prototype.spawnBlock = function()
 	var value = this.startValues[Math.floor(Math.random() * this.startValues.length)];
 	var block = new Block(value);
 
+	var su = 0;
+	var sv = Math.floor(this.w / 2);
+
+	var existing = this.getBlock(su, sv);
+	if(existing != null)
+	{
+		// TODO: endgame
+		return;
+	}
+
 	block.u = 0;
 	block.v = Math.floor(this.w / 2);
 
 	this.grid[block.u][block.v] = block;
 	this.lastSpawned = block;
 
-	// TODO: check if already full --> endgame
-	
 	this.html.makeBlock(block);
 };
 
@@ -60,7 +68,7 @@ Game.prototype.moveBlock = function(u,v, block)
 	block.v = v;
 	this.grid[block.u][block.v] = block;
 
-	// TODO: update DOM
+	this.html.placeBlock(block);
 };
 
 
@@ -116,6 +124,9 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 
 	var u = this.lastSpawned.u;
 	var v = this.lastSpawned.v;
+
+	if(v + dir < 0 || v + dir >= this.w)
+		return;
 
 	var side = this.getBlock(u, v + dir);
 	if(side == null)
