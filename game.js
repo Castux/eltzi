@@ -19,10 +19,6 @@ Game = function(w, h)
 			this.grid[row].push(null);
 		}
 	}
-
-	// shortcut
-
-	this.falling = null;
 };
 
 Game.prototype.spawnBlock = function()
@@ -79,20 +75,22 @@ Game.prototype.getNeighbors = function(u,v)
 
 Game.prototype.stepFalling = function()
 {
-	var f = this.falling;
-
-	if(f == null)
-		return;
-
-	// bottom row or something below: no more falling
-	if(f.u == this.h - 1 || this.getBlock(f.u + 1, f.v) != null)
+	for(var u = this.h - 2 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
+											// (whole propagation), and skip last row
 	{
-		this.falling = null;
-		return;
-	}
+		for(var v = 0 ; v < this.w ; v++)
+		{
+			var block = this.getBlock(u, v);
+			if(block == null)
+				continue;
 
-	// fall!
-	this.moveBlock(f.u + 1, f.v, f);
+			var down = this.getBlock(u + 1, v);
+			if(down != null)
+				continue;
+
+			this.moveBlock(u + 1, v, block);
+		}
+	}
 };
 
 Game.prototype.printGrid = function()
@@ -102,21 +100,3 @@ Game.prototype.printGrid = function()
 }
 
 var game = new Game(5, 7);
-game.spawnBlock();
-game.stepFalling();
-game.stepFalling();
-
-
-game.spawnBlock();
-
-game.stepFalling();
-game.stepFalling();
-game.stepFalling();
-game.stepFalling();
-
-game.stepFalling();
-game.stepFalling();
-game.stepFalling();
-
-console.log(game);
-game.printGrid();
