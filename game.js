@@ -3,8 +3,6 @@ Block = function(value)
 	this.value = value;
 	this.u = null;
 	this.v = null;
-
-	this.state = "idle";
 };
 
 Game = function(w, h)
@@ -80,10 +78,9 @@ Game.prototype.spawnBlock = function()
 
 	// pretend that it was falling, to check merging and other things
 
-	block.state = "falling";
 	this.blockMoved(block);
 
-	this.mode = "normal";
+	// start falling
 
 	this.html.setNextFall(1000);
 };
@@ -140,9 +137,9 @@ Game.prototype.canFall = function(block)
 Game.prototype.stepFalling = function()
 {
 	var moved = false;
+	var merged = false;
 
-	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
-											// (hole propagation)
+	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation (hole propagation)
 	{
 		for(var v = 0 ; v < this.w ; v++)
 		{
@@ -150,28 +147,34 @@ Game.prototype.stepFalling = function()
 			if(block == null)
 				continue;
 
-			if(block.state == "landed")
-			{
-				block.state = "idle";
-
-				if(block == this.lastSpawned)
-					this.lastSpawned = null;
-			}
-
-			else if(this.canFall(block))
+			if(this.canFall(block))
 			{
 				this.moveBlock(u + 1, v, block);
-				block.state = "falling";
 				moved = true;
+			}
+			else
+			{
+				if(block == this.lastSpawned)
+					this.lastSpawned = null;
+
+				if(this.checkMerge(block))
+					merged = true;
 			}
 		}
 	}
 
+	// if something merged, go to merge mode
+	if(merged)
+	{
+		this.html.setNextFall(200);
+	}
+
 	// if something moved, fall again
-	if(moved)
+	else if(moved)
 	{
 		this.html.setNextFall(1000);
 	}
+	
 	// if nothing moved, spawn a new block!
 	else
 	{
@@ -194,7 +197,6 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 	if(side == null)
 	{
 		this.moveBlock(u, v + dir, this.lastSpawned);
-		this.lastSpawned.state = "falling";		// shouldn't be necessary
 	}
 };
 
@@ -215,22 +217,13 @@ Game.prototype.drop = function()
 	if(lastFree > 0)
 	{
 		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
-		this.lastSpawned.state = "landed";
 	}
 };
 
 Game.prototype.blockMoved = function(block)
 {
-	if(block.state == "falling")
+	if(block.merging)
 	{
-		if(!this.canFall(block))
-		{
-			block.state = "landed";
-		}
-	}
-	else if(block.state == "merging")
-	{
-		block.state = "merged";
 		this.html.removeBlock(block);
 	}
 };
@@ -241,7 +234,7 @@ Game.prototype.checkMerge = function(block)
 	for(var i = 0 ; i < n.length ; i++)
 	{
 		this.moveBlock(block.u, block.v, n[i], true);	// true for merge (don't replace destination)
-		n[i].state = "merging";
+		n[i].merging = true;
 
 		block.value *= 2;
 	}
