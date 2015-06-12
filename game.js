@@ -48,7 +48,7 @@ Game.prototype.reset = function()
 			if(block != null)
 				this.html.removeBlock(block);
 
-			thid.grid[u][v] = null;
+			this.grid[u][v] = null;
 		}
 	}
 };

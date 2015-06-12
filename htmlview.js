@@ -156,5 +156,5 @@ HTMLView.prototype.gameOver = function()
 {
 	this.running = false;
 	this.begin.innerHTML = "Game over!";
-	this.begin.visibility = "visible";
+	this.begin.style.visibility = "visible";
 };
