@@ -3,12 +3,12 @@ HTMLView = function(game)
 	this.grid = document.querySelector("#grid");
 	this.game = game;
 
-	this.running = true;
+	this.running = false;
 	this.lastFall = 0;
 	this.fallDelay = 1000;
 
 	// input handling
-
+	var self = this;
 	document.onkeydown = function(e)
 	{
 		switch(e.which)
@@ -17,7 +17,7 @@ HTMLView = function(game)
 			case 39: game.slide(1); break;
 			case 40: game.drop(); break;
 
-			case 38: game.spawnBlock(); break;	// DEBUG
+			case 38: self.running = true; break;	// DEBUG
 		}
 	};
 
@@ -73,6 +73,16 @@ HTMLView.prototype.update = function(ts)
 {
 	if(!this.running)
 		return;
+
+	// no controllable falling block: make one
+
+	if(this.game.lastSpawned == null)
+	{
+		this.game.spawnBlock();
+		this.lastFall = ts;
+	}
+
+	// make blocks fall regularly
 
 	if(ts - this.lastFall > this.fallDelay)
 	{

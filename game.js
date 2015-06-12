@@ -181,6 +181,14 @@ Game.prototype.blockMoved = function(block)
 	{
 		block.state = "merged";
 		this.html.removeBlock(block);
+
+		// check merge on destination too: new number, new possibilities
+
+		var dest = this.getBlock(block.u, block.v);
+		if(dest != null)
+		{
+			this.checkMerge(dest);
+		}
 	}
 };
 
