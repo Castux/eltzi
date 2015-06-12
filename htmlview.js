@@ -1,5 +1,6 @@
 HTMLView = function(game)
 {
+	this.begin = document.querySelector("#begin");
 	this.grid = document.querySelector("#grid");
 	this.game = game;
 
@@ -16,6 +17,11 @@ HTMLView.prototype.setupInput = function()
 	var thiz = this;
 	var game = this.game;
 
+	this.begin.onclick = function()
+	{
+		thiz.running = true;
+		thiz.begin.style.visibility = "hidden";
+	};
 
 	document.onkeydown = function(e)
 	{
@@ -24,13 +30,11 @@ HTMLView.prototype.setupInput = function()
 			case 37: game.slide(-1); break;
 			case 39: game.slide(1); break;
 			case 40: game.drop(); break;
-
-			case 38: thiz.running = true; break;	// DEBUG
 		}
 	};
 
 	this.downPos = null;
-	this.inputThreshold = 50;
+	this.inputThreshold = 100;
 	this.input = new Input(this.grid);
 
 	this.input.start = function(x,y)
@@ -62,7 +66,7 @@ HTMLView.prototype.setupInput = function()
 			}
 
 			// reset for continuous input
-			
+
 			thiz.downPos = {x: x, y: y};
 		}
 	};
