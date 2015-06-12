@@ -82,10 +82,6 @@ Game.prototype.spawnBlock = function()
 
 	this.html.makeBlock(block);
 
-	// pretend that it was falling, to check merging and other things
-
-	this.blockMoved(block);
-
 	// start falling
 
 	this.html.setNextFall(this.fallDelay);
@@ -147,7 +143,9 @@ Game.prototype.stepFalling = function()
 
 	this.fallCount++;
 
-	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation (hole propagation)
+	// check merges first
+
+	for(var u = this.h - 1 ; u >= 0 ; u--)
 	{
 		for(var v = 0 ; v < this.w ; v++)
 		{
@@ -155,13 +153,7 @@ Game.prototype.stepFalling = function()
 			if(block == null)
 				continue;
 
-			if(this.canFall(block))
-			{
-				this.moveBlock(u + 1, v, block);
-				block.lastFall = this.fallCount;
-				moved = true;
-			}
-			else
+			if(!this.canFall(block))
 			{
 				if(block == this.lastSpawned)
 					this.lastSpawned = null;
@@ -176,10 +168,31 @@ Game.prototype.stepFalling = function()
 	{
 		this.fastMode = true;
 		this.html.setNextFall(this.fastDelay);
+
+		return;
+	}
+
+	// if there was no merges, check moves
+
+	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation (hole propagation)
+	{
+		for(var v = 0 ; v < this.w ; v++)
+		{
+			var block = this.getBlock(u, v);
+			if(block == null)
+				continue;
+
+			if(this.canFall(block))
+			{
+				this.moveBlock(u + 1, v, block);
+				block.lastFall = this.fallCount;
+				moved = true;
+			}
+		}
 	}
 
 	// if something moved, fall again
-	else if(moved)
+	if(moved)
 	{
 		this.html.setNextFall(this.fastMode ? this.fastDelay : this.fallDelay);
 	}
