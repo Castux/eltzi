@@ -8,7 +8,7 @@ HTMLView = function(game)
 	this.fallDelay = 1000;
 
 	// input handling
-	var self = this;
+	var thiz = this;
 	document.onkeydown = function(e)
 	{
 		switch(e.which)
@@ -17,16 +17,14 @@ HTMLView = function(game)
 			case 39: game.slide(1); break;
 			case 40: game.drop(); break;
 
-			case 38: self.running = true; break;	// DEBUG
+			case 38: thiz.running = true; break;	// DEBUG
 		}
 	};
 
 	// frame updates
-
-	var self = this;
 	var updateCB = function(timestamp)
 	{
-		self.update(timestamp);
+		thiz.update(timestamp);
 		window.requestAnimationFrame(updateCB);
 	};
 
