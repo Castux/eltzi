@@ -38,6 +38,21 @@ Game = function(w, h)
 	this.html = new HTMLView(this);
 };
 
+Game.prototype.reset = function()
+{
+	for(var u = 0; u < this.h ; u++)
+	{
+		for(var v = 0 ; v < this.w ; v++)
+		{
+			var block = this.getBlock(u,v);
+			if(block != null)
+				this.html.removeBlock(block);
+
+			thid.grid[u][v] = null;
+		}
+	}
+};
+
 Game.prototype.spawnBlock = function()
 {
 	var value = this.startValues[Math.floor(Math.random() * this.startValues.length)];
@@ -49,7 +64,7 @@ Game.prototype.spawnBlock = function()
 	var existing = this.getBlock(su, sv);
 	if(existing != null)
 	{
-		// TODO: endgame
+		this.html.gameOver();
 		return;
 	}
 

@@ -21,6 +21,8 @@ HTMLView.prototype.setupInput = function()
 	{
 		thiz.running = true;
 		thiz.begin.style.visibility = "hidden";
+
+		thiz.game.reset();
 	};
 
 	document.onkeydown = function(e)
@@ -148,4 +150,11 @@ HTMLView.prototype.update = function(ts)
 		this.game.stepFalling();
 		this.lastFall = ts;
 	}
+};
+
+HTMLView.prototype.gameOver = function()
+{
+	this.running = false;
+	this.begin.innerHTML = "Game over!";
+	this.begin.visibility = "visible";
 };
