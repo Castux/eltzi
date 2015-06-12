@@ -10,6 +10,8 @@ Game = function(w, h)
 	// some info
 
 	this.startValues = [2, 4, 8, 16, 32, 64];
+	this.fallDelay = 800;
+	this.fastDelay = 300;
 
 	// grid
 
@@ -30,6 +32,7 @@ Game = function(w, h)
 	// internals
 
 	this.lastSpawned = null;
+	this.fastMode = false;
 
 	// view
 
@@ -82,7 +85,7 @@ Game.prototype.spawnBlock = function()
 
 	// start falling
 
-	this.html.setNextFall(1000);
+	this.html.setNextFall(this.fallDelay);
 };
 
 Game.prototype.getBlock = function(u,v)
@@ -102,7 +105,7 @@ Game.prototype.moveBlock = function(u,v, block, merge)
 	if(!merge)
 		this.grid[block.u][block.v] = block;
 
-	this.html.placeBlock(block);
+	this.html.placeBlock(block, merge);
 };
 
 Game.prototype.getMergeableNeighbors = function(b)
@@ -163,21 +166,22 @@ Game.prototype.stepFalling = function()
 		}
 	}
 
-	// if something merged, go to merge mode
 	if(merged)
 	{
-		this.html.setNextFall(200);
+		this.fastMode = true;
+		this.html.setNextFall(this.fastDelay);
 	}
 
 	// if something moved, fall again
 	else if(moved)
 	{
-		this.html.setNextFall(1000);
+		this.html.setNextFall(this.fastMode ? this.fastDelay : this.fallDelay);
 	}
 	
 	// if nothing moved, spawn a new block!
 	else
 	{
+		this.fastMode = false;
 		this.spawnBlock();
 	}
 };

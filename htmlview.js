@@ -98,11 +98,16 @@ HTMLView.prototype.makeBlock = function(block)
 	this.placeBlock(block);
 };
 
-HTMLView.prototype.placeBlock = function(block)
+HTMLView.prototype.placeBlock = function(block, merge)
 {
 	var width = block.dom.offsetWidth;
 	block.dom.style.left = block.v * width + "px";
 	block.dom.style.top = block.u * width + "px";
+
+	if(merge)
+	{
+		block.dom.classList.add("merging");
+	}
 };
 
 HTMLView.prototype.removeBlock = function(block)
