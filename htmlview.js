@@ -7,8 +7,15 @@ HTMLView = function(game)
 	this.lastFall = 0;
 	this.fallDelay = 1000;
 
-	// input handling
+	this.setupInput();
+	this.setupUpdate();	
+};
+
+HTMLView.prototype.setupInput = function()
+{
 	var thiz = this;
+	var game = this.game;
+
 	document.onkeydown = function(e)
 	{
 		switch(e.which)
@@ -20,15 +27,6 @@ HTMLView = function(game)
 			case 38: thiz.running = true; break;	// DEBUG
 		}
 	};
-
-	// frame updates
-	var updateCB = function(timestamp)
-	{
-		thiz.update(timestamp);
-		window.requestAnimationFrame(updateCB);
-	};
-
-	updateCB(0);
 };
 
 HTMLView.prototype.makeBlock = function(block)
@@ -65,6 +63,19 @@ HTMLView.prototype.updateValue = function(block)
 {
 	block.dom.className = "block block-" + block.value;
 	block.dom.innerHTML = block.value;
+};
+
+HTMLView.prototype.setupUpdate = function()
+{
+	var thiz = this;
+
+	var updateCB = function(timestamp)
+	{
+		thiz.update(timestamp);
+		window.requestAnimationFrame(updateCB);
+	};
+
+	updateCB(0);
 };
 
 HTMLView.prototype.update = function(ts)
