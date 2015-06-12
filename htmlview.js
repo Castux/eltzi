@@ -118,7 +118,7 @@ HTMLView.prototype.removeBlock = function(block)
 
 HTMLView.prototype.updateValue = function(block)
 {
-	block.dom.className = "block block-" + block.value;
+	block.dom.className = "block block-" + (block.value <= 2048 ? block.value : "over");
 	block.dom.innerHTML = block.value;
 };
 
