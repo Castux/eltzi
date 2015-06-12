@@ -56,6 +56,8 @@ HTMLView.prototype.setupInput = function()
 			{
 				if(dy > 0)
 					game.drop();
+
+				thiz.downPos = null;			// stop input
 			}
 			else								// horizontal
 			{
@@ -63,11 +65,9 @@ HTMLView.prototype.setupInput = function()
 					game.slide(1);
 				else
 					game.slide(-1);
+
+				thiz.downPos = {x: x, y: y};	// reset for continuous input
 			}
-
-			// reset for continuous input
-
-			thiz.downPos = {x: x, y: y};
 		}
 	};
 
