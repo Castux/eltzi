@@ -16,8 +16,6 @@ HTMLView.prototype.setupInput = function()
 	var thiz = this;
 	var game = this.game;
 
-	this.mX = null;
-	this.mY = null;
 
 	document.onkeydown = function(e)
 	{
@@ -31,21 +29,47 @@ HTMLView.prototype.setupInput = function()
 		}
 	};
 
+	this.downPos = null;
+	this.inputThreshold = 50;
 	this.input = new Input(this.grid);
 
 	this.input.start = function(x,y)
 	{
-		console.log("start", x, y);
+		thiz.downPos = {x: x, y: y};
 	};
 
 	this.input.move = function(x,y)
 	{
-		console.log("move", x, y);
+		if(thiz.downPos == null)
+			return;
+
+		var dx = x - thiz.downPos.x;
+		var dy = y - thiz.downPos.y;
+
+		if(dx*dx + dy*dy > thiz.inputThreshold * thiz.inputThreshold)
+		{
+			if(Math.abs(dy) > Math.abs(dx))		// vertical
+			{
+				if(dy > 0)
+					game.drop();
+			}
+			else								// horizontal
+			{
+				if(dx > 0)
+					game.slide(1);
+				else
+					game.slide(-1);
+			}
+
+			// reset for continuous input
+			
+			thiz.downPos = {x: x, y: y};
+		}
 	};
 
 	this.input.end = function()
 	{
-		console.log("end");
+		thiz.downPos = null;
 	};
 };
 
