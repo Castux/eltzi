@@ -122,13 +122,22 @@ Game.prototype.getMergeableNeighbors = function(b)
 	return res;
 }
 
-// TODO : perhaps check for merges here, as in, the block after it cannot go further
-// instead of immediately when it touches ground
+Game.prototype.canFall = function(block)
+{
+	if(block.u == this.h - 1)
+		return false;
+
+	var down = this.getBlock(block.u + 1, block.v);
+	return down == null;
+};
 
 Game.prototype.stepFalling = function()
 {
-	for(var u = this.h - 2 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
-											// (hole propagation), and skip last row
+	var moved = false;
+	var merged = false;
+
+	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
+											// (hole propagation)
 	{
 		for(var v = 0 ; v < this.w ; v++)
 		{
@@ -136,14 +145,29 @@ Game.prototype.stepFalling = function()
 			if(block == null)
 				continue;
 
-			var down = this.getBlock(u + 1, v);
-			if(down != null)
-				continue;
-			
-			this.moveBlock(u + 1, v, block);
-			block.state = "falling";
+			if(block.state == "landed")
+			{
+				block.state = "idle";
+				if(this.checkMerge(block))
+					merged = true;
+
+				if(block == this.lastSpawned)
+					this.lastSpawned = null;
+			}
+
+			else if(this.canFall(block))
+			{
+				this.moveBlock(u + 1, v, block);
+				block.state = "falling";
+				moved = true;
+			}
 		}
 	}
+
+	// if nothing moved, spawn a new block!
+
+	if(!moved && !merged)
+		this.spawnBlock();
 };
 
 Game.prototype.slide = function(dir)	// -1, +1 (left, right)
@@ -182,7 +206,7 @@ Game.prototype.drop = function()
 	if(lastFree > 0)
 	{
 		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
-		this.lastSpawned.state = "falling";
+		this.lastSpawned.state = "landed";
 	}
 };
 
@@ -190,28 +214,15 @@ Game.prototype.blockMoved = function(block)
 {
 	if(block.state == "falling")
 	{
-		var down = this.getBlock(block.u + 1, block.v);
-		if(down != null || block.u == this.h - 1)
+		if(!this.canFall(block))
 		{
-			block.state = "idle";
-			this.checkMerge(block);
-
-			if(block == this.lastSpawned)
-				this.lastSpawned = null;
+			block.state = "landed";
 		}
 	}
 	else if(block.state == "merging")
 	{
 		block.state = "merged";
 		this.html.removeBlock(block);
-
-		// check merge on destination too: new number, new possibilities
-
-		var dest = this.getBlock(block.u, block.v);
-		if(dest != null)
-		{
-			this.checkMerge(dest);
-		}
 	}
 };
 
@@ -227,6 +238,8 @@ Game.prototype.checkMerge = function(block)
 	}
 
 	this.html.updateValue(block);
+
+	return n.length > 0;
 };
 
 Game.prototype.printGrid = function()

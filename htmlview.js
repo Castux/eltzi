@@ -135,14 +135,6 @@ HTMLView.prototype.update = function(ts)
 	if(!this.running)
 		return;
 
-	// no controllable falling block: make one
-
-	if(this.game.lastSpawned == null)
-	{
-		this.game.spawnBlock();
-		this.lastFall = ts;
-	}
-
 	// make blocks fall regularly
 
 	if(ts - this.lastFall > this.fallDelay)
