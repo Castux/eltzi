@@ -1,3 +1,12 @@
+Block = function(value)
+{
+	this.value = value;
+	this.u = null;
+	this.v = null;
+
+	this.state = "idle";
+};
+
 Game = function(w, h)
 {
 	// some info
@@ -61,32 +70,33 @@ Game.prototype.getBlock = function(u,v)
 	return this.grid[u][v];
 };
 
-Game.prototype.moveBlock = function(u,v, block)
+Game.prototype.moveBlock = function(u,v, block, merge)
 {
 	this.grid[block.u][block.v] = null;
 	block.u = u;
 	block.v = v;
-	this.grid[block.u][block.v] = block;
+
+	if(!merge)
+		this.grid[block.u][block.v] = block;
 
 	this.html.placeBlock(block);
 };
 
-
-Game.prototype.getNeighbors = function(u,v)
+Game.prototype.getMergeableNeighbors = function(b)
 {
 	var res = [];
 	var block;
 
-	block = this.getBlock(u, v-1);
-	if(block != null)
+	block = this.getBlock(b.u, b.v-1);
+	if(block != null && block.value == b.value)
 		res.push(block);
 
-	block = this.getBlock(u, v+1);
-	if(block != null)
+	block = this.getBlock(b.u, b.v+1);
+	if(block != null && block.value == b.value)
 		res.push(block);
 
-	var block = this.getBlock(u+1, v);
-	if(block != null)
+	var block = this.getBlock(b.u+1, b.v);
+	if(block != null && block.value == b.value)
 		res.push(block);
 
 	return res;
@@ -105,13 +115,8 @@ Game.prototype.stepFalling = function()
 
 			var down = this.getBlock(u + 1, v);
 			if(down != null)
-			{
-				if(block == this.lastSpawned)
-					this.lastSpawned = null;
-
 				continue;
-			}
-
+			
 			this.moveBlock(u + 1, v, block);
 			block.state = "falling";
 		}
@@ -133,7 +138,7 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 	if(side == null)
 	{
 		this.moveBlock(u, v + dir, this.lastSpawned);
-		this.lastSpawned.state = "sliding";
+		this.lastSpawned.state = "falling";		// shouldn't be necessary
 	}
 };
 
@@ -155,15 +160,50 @@ Game.prototype.drop = function()
 	{
 		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
 		this.lastSpawned.state = "falling";
-		this.lastSpawned = null;
 	}
 };
 
 Game.prototype.blockMoved = function(block)
 {
-	// TODO: check merging!
-	console.log("Block moved: " + block.value);
-	block.state = "idle";
+	if(block.state == "falling")
+	{
+		var down = this.getBlock(block.u + 1, block.v);
+		if(down != null || block.u == this.h - 1)
+		{
+			block.state = "idle";
+			this.checkMerge(block);
+
+			if(block == this.lastSpawned)
+				this.lastSpawned = null;
+		}
+	}
+	else if(block.state == "merging")
+	{
+		block.state = "merged";
+		this.html.removeBlock(block);
+
+		// check merge on destination too: new number, new possibilities
+
+		var dest = this.getBlock(block.u, block.v);
+		if(dest != null)
+		{
+			this.checkMerge(dest);
+		}
+	}
+};
+
+Game.prototype.checkMerge = function(block)
+{
+	var n = this.getMergeableNeighbors(block);
+	for(var i = 0 ; i < n.length ; i++)
+	{
+		this.moveBlock(block.u, block.v, n[i], true);	// true for merge (don't replace destination)
+		n[i].state = "merging";
+
+		block.value *= 2;
+	}
+
+	this.html.updateValue(block);
 };
 
 Game.prototype.printGrid = function()
