@@ -50,23 +50,25 @@ HTMLView.prototype.setupInput = function()
 		var dx = x - thiz.downPos.x;
 		var dy = y - thiz.downPos.y;
 
-		if(dx*dx + dy*dy > thiz.inputThreshold * thiz.inputThreshold)
+		if(Math.abs(dy) > Math.abs(dx))		// vertical
 		{
-			if(Math.abs(dy) > Math.abs(dx))		// vertical
+			if(dy > thiz.inputThreshold)
 			{
-				if(dy > 0)
-					game.drop();
-
-				thiz.downPos = null;			// stop input
+				game.drop();	
+				thiz.input.end();			// stop input
+			}			
+		}
+		else								// horizontal
+		{
+			if(dx > thiz.inputThreshold)
+			{
+				game.slide(1);
+				thiz.input.start(x,y);		// reset for continuous input
 			}
-			else								// horizontal
+			else if(dx < -thiz.inputThreshold)
 			{
-				if(dx > 0)
-					game.slide(1);
-				else
-					game.slide(-1);
-
-				thiz.downPos = {x: x, y: y};	// reset for continuous input
+				game.slide(-1);
+				thiz.input.start(x,y);		// reset for continuous input
 			}
 		}
 	};
