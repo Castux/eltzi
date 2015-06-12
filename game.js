@@ -29,7 +29,7 @@ Game = function(w, h)
 		}
 	}
 
-	// shortcut
+	// internals
 
 	this.lastSpawned = null;
 
@@ -51,6 +51,8 @@ Game.prototype.reset = function()
 			this.grid[u][v] = null;
 		}
 	}
+
+	this.spawnBlock();
 };
 
 Game.prototype.spawnBlock = function()
@@ -80,6 +82,10 @@ Game.prototype.spawnBlock = function()
 
 	block.state = "falling";
 	this.blockMoved(block);
+
+	this.mode = "normal";
+
+	this.html.setNextFall(1000);
 };
 
 Game.prototype.getBlock = function(u,v)
@@ -134,7 +140,6 @@ Game.prototype.canFall = function(block)
 Game.prototype.stepFalling = function()
 {
 	var moved = false;
-	var merged = false;
 
 	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation
 											// (hole propagation)
@@ -148,8 +153,6 @@ Game.prototype.stepFalling = function()
 			if(block.state == "landed")
 			{
 				block.state = "idle";
-				if(this.checkMerge(block))
-					merged = true;
 
 				if(block == this.lastSpawned)
 					this.lastSpawned = null;
@@ -164,10 +167,16 @@ Game.prototype.stepFalling = function()
 		}
 	}
 
+	// if something moved, fall again
+	if(moved)
+	{
+		this.html.setNextFall(1000);
+	}
 	// if nothing moved, spawn a new block!
-
-	if(!moved && !merged)
+	else
+	{
 		this.spawnBlock();
+	}
 };
 
 Game.prototype.slide = function(dir)	// -1, +1 (left, right)

@@ -5,8 +5,7 @@ HTMLView = function(game)
 	this.game = game;
 
 	this.running = false;
-	this.lastFall = 0;
-	this.fallDelay = 1000;
+	this.nextFall = null;
 
 	this.setupInput();
 	this.setupUpdate();
@@ -135,13 +134,16 @@ HTMLView.prototype.update = function(ts)
 	if(!this.running)
 		return;
 
-	// make blocks fall regularly
-
-	if(ts - this.lastFall > this.fallDelay)
+	if(this.nextFall != null && ts >= this.nextFall)
 	{
+		this.nextFall = null;
 		this.game.stepFalling();
-		this.lastFall = ts;
 	}
+};
+
+HTMLView.prototype.setNextFall = function(ms)
+{
+	this.nextFall = window.performance.now() + ms;
 };
 
 HTMLView.prototype.gameOver = function()
