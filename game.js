@@ -138,7 +138,7 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 	if(side == null)
 	{
 		this.moveBlock(u, v + dir, this.lastSpawned);
-		this.lastSpawned.state = "sliding";
+		this.lastSpawned.state = "falling";		// shouldn't be necessary
 	}
 };
 
