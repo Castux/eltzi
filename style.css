@@ -19,7 +19,7 @@
 
 #grid
 {
-	position: absolute;
+	position: relative;
 	width: 500px;
 	height: 700px;
 	background: #eee;

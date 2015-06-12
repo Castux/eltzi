@@ -7,3 +7,16 @@ From the playthrough video we can see:
 IE: no new block while merging/still falling!
 
 - when dropping, perform merge check immediately at arrival
+
+Galaxy s4
+=========
+
+Normal window:
+
+portrait : 673x1044
+landscape : 673x294
+
+Fullscreen mode:
+
+portrait : 360x640
+landscape : 640x360
