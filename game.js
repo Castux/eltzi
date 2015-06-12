@@ -3,6 +3,8 @@ Block = function(value)
 	this.value = value;
 	this.u = null;
 	this.v = null;
+
+	this.lastFall = 0;
 };
 
 Game = function(w, h)
@@ -33,6 +35,7 @@ Game = function(w, h)
 
 	this.lastSpawned = null;
 	this.fastMode = false;
+	this.fallCount = 0;
 
 	// view
 
@@ -114,15 +117,15 @@ Game.prototype.getMergeableNeighbors = function(b)
 	var block;
 
 	block = this.getBlock(b.u, b.v-1);
-	if(block != null && block.value == b.value)
+	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
 		res.push(block);
 
 	block = this.getBlock(b.u, b.v+1);
-	if(block != null && block.value == b.value)
+	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
 		res.push(block);
 
 	var block = this.getBlock(b.u+1, b.v);
-	if(block != null && block.value == b.value)
+	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
 		res.push(block);
 
 	return res;
@@ -142,6 +145,8 @@ Game.prototype.stepFalling = function()
 	var moved = false;
 	var merged = false;
 
+	this.fallCount++;
+
 	for(var u = this.h - 1 ; u >= 0 ; u--)	// go bottom up for easier grid manipulation (hole propagation)
 	{
 		for(var v = 0 ; v < this.w ; v++)
@@ -153,6 +158,7 @@ Game.prototype.stepFalling = function()
 			if(this.canFall(block))
 			{
 				this.moveBlock(u + 1, v, block);
+				block.lastFall = this.fallCount;
 				moved = true;
 			}
 			else
