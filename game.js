@@ -75,6 +75,12 @@ Game.prototype.spawnBlock = function()
 	this.lastSpawned = block;
 
 	this.html.makeBlock(block);
+
+	// pretend that it was falling, to check merging and other things
+	
+	block.state = "falling";
+	this.blockMoved(block);
+
 };
 
 Game.prototype.getBlock = function(u,v)
