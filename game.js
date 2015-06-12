@@ -212,13 +212,16 @@ Game.prototype.slide = function(dir)	// -1, +1 (left, right)
 
 Game.prototype.drop = function()
 {
-	if(this.lastSpawned == null)
+	var block = this.lastSpawned;
+	if(block == null)
 		return;
 
+	this.fallCount++;
+
 	var lastFree = -1;
-	for(var u = this.lastSpawned.u + 1 ; u < this.h ; u++)
+	for(var u = block.u + 1 ; u < this.h ; u++)
 	{
-		if(this.getBlock(u, this.lastSpawned.v) == null)
+		if(this.getBlock(u, block.v) == null)
 			lastFree = u;
 		else
 			break;
@@ -226,7 +229,9 @@ Game.prototype.drop = function()
 
 	if(lastFree > 0)
 	{
-		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
+		this.moveBlock(lastFree, block.v, block);
+		block.lastFall = this.fallCount;
+		this.html.setNextFall(this.fastDelay);
 	}
 };
 
