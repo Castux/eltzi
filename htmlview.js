@@ -10,7 +10,20 @@ HTMLView = function(game)
 
 	this.setupInput();
 	this.setupUpdate();
+
+	var thiz = this;
+	window.onresize = function(e)
+	{
+		thiz.printSize();
+	};
+
+	this.printSize();
 };
+
+HTMLView.prototype.printSize = function()
+{
+	this.score.innerHTML = window.innerWidth + "x" + window.innerHeight;
+}
 
 HTMLView.prototype.setupInput = function()
 {
