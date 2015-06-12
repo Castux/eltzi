@@ -55,6 +55,7 @@ Game.prototype.reset = function()
 	this.fallCount = 0;
 
 	this.score = 0;
+	this.html.updateScore();
 };
 
 Game.prototype.startGame = function()
@@ -263,6 +264,10 @@ Game.prototype.blockMoved = function(block)
 Game.prototype.checkMerge = function(block)
 {
 	var n = this.getMergeableNeighbors(block);
+
+	if(n.length == 0)
+		return false;
+
 	for(var i = 0 ; i < n.length ; i++)
 	{
 		this.moveBlock(block.u, block.v, n[i], true);	// true for merge (don't replace destination)
@@ -271,9 +276,11 @@ Game.prototype.checkMerge = function(block)
 		block.value *= 2;
 	}
 
+	this.score += block.value;
 	this.html.updateValue(block);
+	this.html.updateScore();
 
-	return n.length > 0;
+	return true;
 };
 
 Game.prototype.printGrid = function()

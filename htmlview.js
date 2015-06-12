@@ -2,6 +2,7 @@ HTMLView = function(game)
 {
 	this.begin = document.querySelector("#begin");
 	this.grid = document.querySelector("#grid");
+	this.score = document.querySelector("#score");
 	this.game = game;
 
 	this.running = false;
@@ -149,6 +150,11 @@ HTMLView.prototype.update = function(ts)
 HTMLView.prototype.setNextFall = function(ms)
 {
 	this.nextFall = window.performance.now() + ms;
+};
+
+HTMLView.prototype.updateScore = function()
+{
+	this.score.innerHTML = this.game.score;
 };
 
 HTMLView.prototype.gameOver = function()
