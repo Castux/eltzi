@@ -20,19 +20,17 @@ HTMLView.prototype.makeBlock = function(block)
 {
 	var game = this.game;
 	var dom = document.createElement("div");
+	
+	block.dom = dom;
 
-	dom.classList.add("block");
-	dom.classList.add("block-" + block.value);
-	dom.innerHTML = block.value;
 	dom.addEventListener("transitionend", function()
 	{
 		game.blockMoved(block);
 	});
 
 	this.grid.appendChild(dom);
-	
-	block.dom = dom;
 
+	this.updateValue(block);
 	this.placeBlock(block);
 };
 
@@ -42,3 +40,15 @@ HTMLView.prototype.placeBlock = function(block)
 	block.dom.style.left = block.v * width + "px";
 	block.dom.style.top = block.u * width + "px";
 };
+
+HTMLView.prototype.removeBlock = function(block)
+{
+	this.grid.removeChild(block.dom);
+};
+
+HTMLView.prototype.updateValue = function(block)
+{
+	block.dom.className = "block block-" + block.value;
+	block.dom.innerHTML = block.value;
+};
+
