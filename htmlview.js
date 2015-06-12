@@ -8,13 +8,16 @@ HTMLView = function(game)
 	this.fallDelay = 1000;
 
 	this.setupInput();
-	this.setupUpdate();	
+	this.setupUpdate();
 };
 
 HTMLView.prototype.setupInput = function()
 {
 	var thiz = this;
 	var game = this.game;
+
+	this.mX = null;
+	this.mY = null;
 
 	document.onkeydown = function(e)
 	{
@@ -26,6 +29,23 @@ HTMLView.prototype.setupInput = function()
 
 			case 38: thiz.running = true; break;	// DEBUG
 		}
+	};
+
+	this.input = new Input(this.grid);
+
+	this.input.start = function(x,y)
+	{
+		console.log("start", x, y);
+	};
+
+	this.input.move = function(x,y)
+	{
+		console.log("move", x, y);
+	};
+
+	this.input.end = function()
+	{
+		console.log("end");
 	};
 };
 
