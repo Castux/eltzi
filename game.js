@@ -77,10 +77,9 @@ Game.prototype.spawnBlock = function()
 	this.html.makeBlock(block);
 
 	// pretend that it was falling, to check merging and other things
-	
+
 	block.state = "falling";
 	this.blockMoved(block);
-
 };
 
 Game.prototype.getBlock = function(u,v)
@@ -122,6 +121,9 @@ Game.prototype.getMergeableNeighbors = function(b)
 
 	return res;
 }
+
+// TODO : perhaps check for merges here, as in, the block after it cannot go further
+// instead of immediately when it touches ground
 
 Game.prototype.stepFalling = function()
 {
