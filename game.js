@@ -31,12 +31,6 @@ Game = function(w, h)
 		}
 	}
 
-	// internals
-
-	this.lastSpawned = null;
-	this.fastMode = false;
-	this.fallCount = 0;
-
 	// view
 
 	this.html = new HTMLView(this);
@@ -56,8 +50,18 @@ Game.prototype.reset = function()
 		}
 	}
 
-	this.spawnBlock();
+	this.lastSpawned = null;
+	this.fastMode = false;
+	this.fallCount = 0;
+
+	this.score = 0;
 };
+
+Game.prototype.startGame = function()
+{
+	this.reset();
+	this.spawnBlock();
+}
 
 Game.prototype.spawnBlock = function()
 {

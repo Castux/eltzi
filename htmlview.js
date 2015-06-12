@@ -21,7 +21,7 @@ HTMLView.prototype.setupInput = function()
 		thiz.running = true;
 		thiz.begin.style.visibility = "hidden";
 
-		thiz.game.reset();
+		thiz.game.startGame();
 	};
 
 	document.onkeydown = function(e)
