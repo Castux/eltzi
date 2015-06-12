@@ -115,13 +115,8 @@ Game.prototype.stepFalling = function()
 
 			var down = this.getBlock(u + 1, v);
 			if(down != null)
-			{
-				if(block == this.lastSpawned)
-					this.lastSpawned = null;
-
 				continue;
-			}
-
+			
 			this.moveBlock(u + 1, v, block);
 			block.state = "falling";
 		}
@@ -165,7 +160,6 @@ Game.prototype.drop = function()
 	{
 		this.moveBlock(lastFree, this.lastSpawned.v, this.lastSpawned);
 		this.lastSpawned.state = "falling";
-		this.lastSpawned = null;
 	}
 };
 
@@ -173,8 +167,15 @@ Game.prototype.blockMoved = function(block)
 {
 	if(block.state == "falling")
 	{
-		block.state = "idle";
-		this.checkMerge(block)
+		var down = this.getBlock(block.u + 1, block.v);
+		if(down != null || block.u == this.h - 1)
+		{
+			block.state = "idle";
+			this.checkMerge(block);
+
+			if(block == this.lastSpawned)
+				this.lastSpawned = null;
+		}
 	}
 	else if(block.state == "merging")
 	{

@@ -3,6 +3,12 @@ HTMLView = function(game)
 	this.grid = document.querySelector("#grid");
 	this.game = game;
 
+	this.running = true;
+	this.lastFall = 0;
+	this.fallDelay = 1000;
+
+	// input handling
+
 	document.onkeydown = function(e)
 	{
 		switch(e.which)
@@ -14,13 +20,24 @@ HTMLView = function(game)
 			case 38: game.spawnBlock(); break;	// DEBUG
 		}
 	};
+
+	// frame updates
+
+	var self = this;
+	var updateCB = function(timestamp)
+	{
+		self.update(timestamp);
+		window.requestAnimationFrame(updateCB);
+	};
+
+	updateCB(0);
 };
 
 HTMLView.prototype.makeBlock = function(block)
 {
 	var game = this.game;
 	var dom = document.createElement("div");
-	
+
 	block.dom = dom;
 
 	dom.addEventListener("transitionend", function()
@@ -52,3 +69,14 @@ HTMLView.prototype.updateValue = function(block)
 	block.dom.innerHTML = block.value;
 };
 
+HTMLView.prototype.update = function(ts)
+{
+	if(!this.running)
+		return;
+
+	if(ts - this.lastFall > this.fallDelay)
+	{
+		this.game.stepFalling();
+		this.lastFall = ts;
+	}
+};
