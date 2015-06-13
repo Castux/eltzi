@@ -17,15 +17,15 @@ body
 #topbar
 {
 	position: relative;
-	height: 60px;
-
+	height: 40px;
+	margin-bottom: 10px;
 	text-align: center;
 }
 
 #score
 {
 	display: inline-block;
-	line-height: 60px;
+	line-height: 40px;
 	font-size: 40px;
 	font-weight: bold;
 }
@@ -40,7 +40,6 @@ body
 #next-block
 {
 	display: inline-block;
-	margin: 10px 0;
 	width: 40px;
 	height: 40px;
 	line-height: 40px;
