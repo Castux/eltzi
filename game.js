@@ -91,6 +91,7 @@ Game.prototype.spawnBlock = function()
 
 	block.u = 0;
 	block.v = Math.floor(this.w / 2);
+	block.lastFall = this.fallCount;
 
 	this.grid[block.u][block.v] = block;
 	this.lastSpawned = block;
