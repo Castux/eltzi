@@ -197,5 +197,5 @@ HTMLView.prototype.gameOver = function()
 	this.overlay.innerHTML = "Game over!";
 	this.overlay.style.left = "0px";
 
-	this.toprightButton.innerHTML = "New game";
+	this.toprightButton.innerHTML = "Restart";
 };
