@@ -41,6 +41,7 @@ html, body {
 	height: 40px;
 	line-height: 40px;
 	border-radius: 6px;
+	visibility: hidden;
 }
 
 #begin

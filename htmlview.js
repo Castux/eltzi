@@ -3,6 +3,8 @@ HTMLView = function(game)
 	this.begin = document.querySelector("#begin");
 	this.grid = document.querySelector("#grid");
 	this.score = document.querySelector("#score");
+	this.nextBlock = document.querySelector("#next-block");
+
 	this.game = game;
 
 	this.running = false;
@@ -155,6 +157,13 @@ HTMLView.prototype.setNextFall = function(ms)
 HTMLView.prototype.updateScore = function()
 {
 	this.score.innerHTML = this.game.score;
+};
+
+HTMLView.prototype.updateNextBlock = function()
+{
+	this.nextBlock.innerHTML = this.game.nextValue;
+	this.nextBlock.className = "block-" + this.game.nextValue;
+	this.nextBlock.style.visibility = "visible";
 };
 
 HTMLView.prototype.gameOver = function()

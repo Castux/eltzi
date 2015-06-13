@@ -56,6 +56,8 @@ Game.prototype.reset = function()
 
 	this.score = 0;
 	this.html.updateScore();
+
+	this.makeNextBlock();
 };
 
 Game.prototype.startGame = function()
@@ -64,9 +66,15 @@ Game.prototype.startGame = function()
 	this.spawnBlock();
 }
 
+Game.prototype.makeNextBlock = function()
+{
+	this.nextValue = this.startValues[Math.floor(Math.random() * this.startValues.length)];
+	this.html.updateNextBlock();
+}
+
 Game.prototype.spawnBlock = function()
 {
-	var value = this.startValues[Math.floor(Math.random() * this.startValues.length)];
+	var value = this.nextValue;
 	var block = new Block(value);
 
 	var su = 0;
@@ -90,6 +98,10 @@ Game.prototype.spawnBlock = function()
 	// start falling
 
 	this.html.setNextFall(this.fallDelay);
+
+	// prepare next
+
+	this.makeNextBlock();
 };
 
 Game.prototype.getBlock = function(u,v)
