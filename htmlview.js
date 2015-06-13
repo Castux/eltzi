@@ -54,6 +54,9 @@ HTMLView.prototype.setupInput = function()
 
 	this.downPos = null;
 	this.inputThreshold = this.grid.offsetWidth / 5 * 0.75;
+
+	this.score.innerHTML = "th = " + this.inputThreshold;
+
 	this.input = new Input(this.grid);
 
 	this.input.start = function(x,y)
