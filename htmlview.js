@@ -1,5 +1,6 @@
 HTMLView = function(game)
 {
+	this.container = document.querySelector("#container");
 	this.overlay = document.querySelector("#overlay");
 	this.grid = document.querySelector("#grid");
 	this.score = document.querySelector("#score");
@@ -91,6 +92,12 @@ HTMLView.prototype.setupInput = function()
 	{
 		thiz.downPos = null;
 	};
+
+	window.onresize = function()
+	{
+		var height = window.innerHeight;
+		thiz.container.style.marginTop = (height - thiz.container.offsetHeight) / 2 + "px"; 
+	}
 };
 
 HTMLView.prototype.makeBlock = function(block)
