@@ -12,7 +12,7 @@ Game = function(w, h)
 	// some info
 
 	this.startValues = [2, 4, 8, 16, 32, 64];
-	this.fallDelay = 800;
+	this.fallDelay = 0;		// set in updateFallingSpeed();
 	this.fastDelay = 350;
 
 	// grid
@@ -56,6 +56,8 @@ Game.prototype.reset = function()
 
 	this.score = 0;
 	this.html.updateScore();
+
+	this.updateFallingSpeed();
 
 	this.makeNextBlock();
 };
@@ -291,24 +293,17 @@ Game.prototype.checkMerge = function(block)
 	this.score += block.value;
 	this.html.updateValue(block);
 	this.html.updateScore();
+	this.updateFallingSpeed();
 
 	return true;
 };
 
-Game.prototype.printGrid = function()
+Game.prototype.updateFallingSpeed = function()
 {
-	var res = "";
-	for(var u = 0; u < this.h ; u++)
-	{
-		for(var v = 0 ; v < this.w ; v++)
-		{
-			var block = this.getBlock(u,v);
-			res += (block != null ? block.value : ".") + " ";
-		}
-		res += "\n";
-	}
+	var lgScore = Math.log(this.score + 1) / Math.LN2;
+	var bpm = 60 + 6 * lgScore;
 
-	console.log(res);
+	this.fallDelay = 60 / bpm * 1000;
 };
 
 var game = new Game(5, 7);
