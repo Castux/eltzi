@@ -43,7 +43,7 @@ HTMLView.prototype.setupInput = function()
 	{
 		if(!thiz.running || thiz.pause)
 			return;
-		
+
 		switch(e.which)
 		{
 			case 37: game.slide(-1); break;
@@ -108,6 +108,8 @@ HTMLView.prototype.setupInput = function()
 	{
 		var height = window.innerHeight;
 		thiz.container.style.marginTop = (height - thiz.container.offsetHeight) / 2 + "px";
+		if(!isFullScreen())
+			thiz.fsButton.style.visibility = "visible";
 	};
 
 	this.fsButton.onclick = function()
@@ -226,6 +228,14 @@ HTMLView.prototype.gameOver = function()
 	this.toprightButton.innerHTML = "Restart";
 };
 
+function isFullScreen()
+{
+	return document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement;
+};
+
 function goFullScreen()
 {
 	var doc = document.documentElement;
@@ -236,4 +246,6 @@ function goFullScreen()
 		doc.mozRequestFullScreen();
 	else if (doc.webkitRequestFullScreen)
 		doc.webkitRequestFullScreen();
-}
+	else if (doc.msRequestFullScreen)
+		doc.msRequestFullScreen();
+};
