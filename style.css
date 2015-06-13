@@ -97,6 +97,13 @@ body
 	text-align: center;
 }
 
+#fs
+{
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
 .block
 {
 	width: 100px;

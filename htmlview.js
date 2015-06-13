@@ -6,6 +6,7 @@ HTMLView = function(game)
 	this.score = document.querySelector("#score");
 	this.nextBlock = document.querySelector("#next-block");
 	this.toprightButton = document.querySelector("#topright-button");
+	this.fsButton = document.querySelector("#fs");
 
 	this.game = game;
 
@@ -97,8 +98,14 @@ HTMLView.prototype.setupInput = function()
 	window.onresize = function()
 	{
 		var height = window.innerHeight;
-		thiz.container.style.marginTop = (height - thiz.container.offsetHeight) / 2 + "px"; 
-	}
+		thiz.container.style.marginTop = (height - thiz.container.offsetHeight) / 2 + "px";
+	};
+
+	this.fsButton.onclick = function()
+	{
+		thiz.fsButton.style.visibility = "hidden";
+		goFullScreen();
+	};
 };
 
 HTMLView.prototype.makeBlock = function(block)
@@ -207,3 +214,15 @@ HTMLView.prototype.gameOver = function()
 
 	this.toprightButton.innerHTML = "Restart";
 };
+
+function goFullScreen()
+{
+	var doc = document.documentElement;
+
+	if (doc.requestFullscreen)
+		doc.requestFullscreen();
+	else if (doc.mozRequestFullScreen)
+		doc.mozRequestFullScreen();
+	else if (doc.webkitRequestFullScreen)
+		doc.webkitRequestFullScreen();
+}
