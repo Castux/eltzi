@@ -122,11 +122,6 @@ html, body
 	transition: left 0.1s, top 0.1s;
 }
 
-.block .merging
-{
-	z-index: 1;
-}
-
 .block-2
 {
 	color: #776e65;
@@ -210,6 +205,11 @@ html, body
     z-index: 3;
 }
 
+.merging
+{
+	z-index: 1;
+}
+
 /* mobile settings */
 
 @media screen and (max-width: 520px)
@@ -217,7 +217,6 @@ html, body
 	#container
 	{
 		width: 300px;
-		margin: 0px auto;
 	}
 
 	#score
@@ -227,7 +226,6 @@ html, body
 
 	#grid
 	{
-		position: relative;
 		width: 300px;
 		height: 420px;
 	}

@@ -167,8 +167,6 @@ HTMLView.prototype.updateValue = function(block)
 	block.dom.innerHTML = block.value;
 };
 
-
-
 HTMLView.prototype.bounce = function(block)
 {
 	block.dom.classList.add("bouncing");
