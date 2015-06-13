@@ -6,11 +6,11 @@
 
 #begin
 {
-	position: relative;
+	position: absolute;
 	width: 100px;
 	height: 50px;
 	top: 350px;
-	margin: 0 auto;
+	left: 200px;
 	text-align: center;
 	line-height: 50px;
 	background: #ddd;
