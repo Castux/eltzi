@@ -130,15 +130,15 @@ Game.prototype.getMergeableNeighbors = function(b)
 	var block;
 
 	block = this.getBlock(b.u, b.v-1);
-	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
+	if(block != null && block.value == b.value && block.lastFall <= b.lastFall)
 		res.push(block);
 
 	block = this.getBlock(b.u, b.v+1);
-	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
+	if(block != null && block.value == b.value && block.lastFall <= b.lastFall)
 		res.push(block);
 
 	var block = this.getBlock(b.u+1, b.v);
-	if(block != null && block.value == b.value && block.lastFall < b.lastFall)
+	if(block != null && block.value == b.value && block.lastFall <= b.lastFall)
 		res.push(block);
 
 	return res;
