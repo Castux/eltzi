@@ -24,6 +24,7 @@ body
 
 #score
 {
+	display: inline-block;
 	line-height: 60px;
 	font-size: 40px;
 	font-weight: bold;
@@ -31,10 +32,9 @@ body
 
 #topright
 {
-	position: absolute;
-	right: 0px;
-
+	float: right;
 	font-size: 18px;
+	text-align: center;
 }
 
 #next-block
@@ -181,6 +181,72 @@ body
 .block-over
 {
 	color: #f9f6f2;
-    background: #3c3a32;
-    font-size: 30px;
+	background: #3c3a32;
+	font-size: 30px;
+}
+
+/* mobile settings */
+
+@media screen and (max-width: 520px)
+{
+	#container
+	{
+		width: 300px;
+		margin: 60px auto;
+	}
+
+	#score
+	{
+		font-size: 34px;
+	}
+
+	#grid
+	{
+		position: relative;
+		width: 300px;
+		height: 420px;
+	}
+
+	#overlay
+	{
+		margin: 170px auto;
+		height: 80px;
+		
+		line-height: 80px;
+		font-size: 34px;
+	}
+
+	.block
+	{
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+
+		font-size: 33px;
+	}
+
+	.block-128
+	{
+		font-size: 24px;
+	}
+	.block-256
+	{
+		font-size: 24px;
+	}
+	.block-512
+	{
+		font-size: 24px;
+	}
+	.block-1024
+	{
+		font-size: 19px;
+	}
+	.block-2048
+	{
+		font-size: 19px;
+	}
+	.block-over
+	{
+	    font-size: 16px;
+	}
 }
