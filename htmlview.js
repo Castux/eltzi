@@ -93,6 +93,7 @@ HTMLView.prototype.setupInput = function()
 		thiz.downPos = null;
 	};
 
+	window.onload = 
 	window.onresize = function()
 	{
 		var height = window.innerHeight;
