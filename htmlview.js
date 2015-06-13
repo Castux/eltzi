@@ -108,7 +108,12 @@ HTMLView.prototype.setupInput = function()
 	window.onresize = function()
 	{
 		var height = window.innerHeight;
-		thiz.container.style.marginTop = (height - thiz.container.offsetHeight) / 2 + "px";
+		var margin = (height - thiz.container.offsetHeight) / 2;
+		if(margin < 0)
+			margin = 0;
+
+		thiz.container.style.marginTop = margin + "px";
+
 		if(!isFullScreen())
 			thiz.fsButton.style.visibility = "visible";
 	};
