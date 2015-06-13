@@ -13,7 +13,7 @@ Game = function(w, h)
 
 	this.startValues = [2, 4, 8, 16, 32, 64];
 	this.fallDelay = 800;
-	this.fastDelay = 300;
+	this.fastDelay = 350;
 
 	// grid
 
