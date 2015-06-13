@@ -95,6 +95,7 @@ html, body
 	overflow: hidden;
 
 	text-align: center;
+	cursor: default;
 }
 
 #fs
@@ -117,7 +118,6 @@ html, body
 	font-weight: bold;
 
 	z-index: 2;
-	cursor: default;
 
 	transition: left 0.1s, top 0.1s;
 }
