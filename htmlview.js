@@ -132,6 +132,12 @@ HTMLView.prototype.makeBlock = function(block)
 		game.blockMoved(block);
 	});
 
+	dom.addEventListener("animationend", function(e)
+	{
+		if(e.animationName == "bounce")
+			dom.classList.remove("bouncing");
+	});
+
 	this.grid.appendChild(dom);
 
 	this.updateValue(block);
@@ -159,6 +165,13 @@ HTMLView.prototype.updateValue = function(block)
 {
 	block.dom.className = "block block-" + (block.value <= 2048 ? block.value : "over");
 	block.dom.innerHTML = block.value;
+};
+
+
+
+HTMLView.prototype.bounce = function(block)
+{
+	block.dom.classList.add("bouncing");
 };
 
 HTMLView.prototype.setupUpdate = function()

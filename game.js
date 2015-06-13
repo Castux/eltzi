@@ -293,6 +293,7 @@ Game.prototype.checkMerge = function(block)
 	this.score += block.value;
 	this.html.updateValue(block);
 	this.html.updateScore();
+	this.html.bounce(block);
 	this.updateFallingSpeed();
 
 	return true;
