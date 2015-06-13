@@ -31,7 +31,7 @@ HTMLView.prototype.setupInput = function()
 			thiz.game.startGame();
 
 			thiz.toprightButton.innerHTML = "Pause";
-			thiz.overlay.style.left = "510px";
+			thiz.overlay.style.left = "110%";
 		}
 		else
 		{
@@ -41,6 +41,9 @@ HTMLView.prototype.setupInput = function()
 
 	document.onkeydown = function(e)
 	{
+		if(!thiz.running || thiz.pause)
+			return;
+		
 		switch(e.which)
 		{
 			case 37: game.slide(-1); break;
@@ -55,11 +58,17 @@ HTMLView.prototype.setupInput = function()
 
 	this.input.start = function(x,y)
 	{
+		if(!thiz.running || thiz.pause)
+			return;
+
 		thiz.downPos = {x: x, y: y};
 	};
 
 	this.input.move = function(x,y)
 	{
+		if(!thiz.running || thiz.pause)
+			return;
+
 		if(thiz.downPos == null)
 			return;
 
@@ -198,11 +207,13 @@ HTMLView.prototype.togglePause = function()
 		this.pause = true;
 		this.overlay.innerHTML = "Paused...";
 		this.overlay.style.left = "0px";
+		this.toprightButton.innerHTML = "Resume";
 	}
 	else
 	{
 		this.pause = false;
-		this.overlay.style.left = "510px";
+		this.overlay.style.left = "110%";
+		this.toprightButton.innerHTML = "Pause";
 	}
 }
 
