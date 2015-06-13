@@ -1,13 +1,15 @@
 HTMLView = function(game)
 {
-	this.begin = document.querySelector("#begin");
+	this.overlay = document.querySelector("#overlay");
 	this.grid = document.querySelector("#grid");
 	this.score = document.querySelector("#score");
 	this.nextBlock = document.querySelector("#next-block");
+	this.toprightButton = document.querySelector("#topright-button");
 
 	this.game = game;
 
 	this.running = false;
+	this.pause = false;
 	this.nextFall = null;
 
 	this.setupInput();
@@ -19,13 +21,21 @@ HTMLView.prototype.setupInput = function()
 	var thiz = this;
 	var game = this.game;
 
-	this.begin.onclick = function()
+	this.toprightButton.onclick = function()
 	{
-		thiz.running = true;
-		thiz.begin.style.visibility = "hidden";
+		if(!thiz.running)
+		{
+			thiz.running = true;
+			thiz.game.startGame();
 
-		thiz.game.startGame();
-	};
+			thiz.toprightButton.innerHTML = "Pause";
+			thiz.overlay.style.left = "510px";
+		}
+		else
+		{
+			thiz.togglePause();
+		}
+	}
 
 	document.onkeydown = function(e)
 	{
@@ -139,7 +149,7 @@ HTMLView.prototype.setupUpdate = function()
 
 HTMLView.prototype.update = function(ts)
 {
-	if(!this.running)
+	if(!this.running || this.pause)
 		return;
 
 	if(this.nextFall != null && ts >= this.nextFall)
@@ -166,9 +176,26 @@ HTMLView.prototype.updateNextBlock = function()
 	this.nextBlock.style.visibility = "visible";
 };
 
+HTMLView.prototype.togglePause = function()
+{
+	if(!this.pause)
+	{
+		this.pause = true;
+		this.overlay.innerHTML = "Paused...";
+		this.overlay.style.left = "0px";
+	}
+	else
+	{
+		this.pause = false;
+		this.overlay.style.left = "510px";
+	}
+}
+
 HTMLView.prototype.gameOver = function()
 {
 	this.running = false;
-	this.begin.innerHTML = "Game over!";
-	this.begin.style.visibility = "visible";
+	this.overlay.innerHTML = "Game over!";
+	this.overlay.style.left = "0px";
+
+	this.toprightButton.innerHTML = "New game";
 };
