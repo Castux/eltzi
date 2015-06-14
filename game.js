@@ -35,7 +35,7 @@ Game = function(w, h)
 
 	this.startValues = [2, 4, 8, 16, 32, 64];
 	this.fallDelay = 0;		// set in updateFallingSpeed();
-	this.fastDelay = 350;
+	this.fastDelay = 175;
 
 	// grid
 

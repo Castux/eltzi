@@ -75,7 +75,7 @@ HTMLView.prototype.setupInput = function()
 	};
 
 	this.downPos = null;
-	this.inputThreshold = this.grid.offsetWidth / 5 * 0.7;
+	this.inputThreshold = this.grid.offsetWidth / 5 * 0.4;
 
 	this.input = new Input(this.grid);
 

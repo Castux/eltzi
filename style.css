@@ -90,7 +90,7 @@ html, body
 	position: relative;
 	width: 500px;
 	height: 700px;
-	background: #bbada0;
+	background: #e5e5e2;
 	z-index: 0;
 	overflow: hidden;
 
@@ -114,78 +114,65 @@ html, body
 	position: absolute;
 	line-height: 100px;
 
-	font-size: 55px;
+	font-size: 35px;
 	font-weight: bold;
 
 	z-index: 2;
 
 	transition: left 0.1s, top 0.1s;
+
+	color: #343838;
 }
 
 .block-2
 {
-	color: #776e65;
-	background: #eee4da;
+	background: #a79c8e;
 }
 .block-4
 {
-	color: #776e65;
-	background: #ede0c8;
+	background: #f8ecc9;
 }
 .block-8
 {
-	color: #f9f6f2;
-	background: #f2b179;
+		background: #ff8c94;
 }
 .block-16
 {
-	color: #f9f6f2;
-	background: #f59563;
+		background: #ffaaa6;
 }
 .block-32
 {
-	color: #f9f6f2;
-	background: #f67c5f;
+	background: #ffd3b5;
 }
 .block-64
 {
-	color: #f9f6f2;
-	background: #f65e3b;
+	background: #dcedc2;
 }
 .block-128
 {
-	color: #f9f6f2;
-	background: #edcf72;
-	font-size: 45px;
+	background: #a8e6ce;
 }
 .block-256
 {
-	color: #f9f6f2;
-	background: #edcc61;
-	font-size: 45px;
+	background: #00dffc;
 }
 .block-512
 {
-	color: #f9f6f2;
-	background: #edc850;
-	font-size: 45px;
+	background: #00b4cc;
 }
 .block-1024
 {
-	color: #f9f6f2;
-	background: #edc53f;
-	font-size: 35px;
+	background: #008c9e;
 }
 .block-2048
 {
-	color: #f9f6f2;
-	background: #edc22e;
-	font-size: 35px;
+	color: #ffffff;
+	background: #005f6b;
 }
 .block-over
 {
-	color: #f9f6f2;
-	background: #3c3a32;
+	color: #ffffff;
+	background: #343838;
 	font-size: 30px;
 }
 
@@ -245,21 +232,9 @@ html, body
 		height: 60px;
 		line-height: 60px;
 
-		font-size: 33px;
-	}
-
-	.block-128
-	{
 		font-size: 24px;
 	}
-	.block-256
-	{
-		font-size: 24px;
-	}
-	.block-512
-	{
-		font-size: 24px;
-	}
+	
 	.block-1024
 	{
 		font-size: 19px;
