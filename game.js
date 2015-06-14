@@ -324,9 +324,7 @@ Game.prototype.checkMerge = function(block)
 
 Game.prototype.updateFallingSpeed = function()
 {
-	var lgScore = Math.log(this.score + 1) / Math.LN2;
-	var bpm = 60 + 6 * lgScore;
-
+	var bpm = 100 + 200 * this.score / 200000;
 	this.fallDelay = 60 / bpm * 1000;
 };
 
