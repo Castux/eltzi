@@ -256,7 +256,7 @@ HTMLView.prototype.togglePause = function()
 		this.overlay.style.left = "110%";
 		this.toprightButton.innerHTML = "Pause";
 	}
-}
+};
 
 HTMLView.prototype.gameOver = function()
 {

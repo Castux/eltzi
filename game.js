@@ -88,13 +88,13 @@ Game.prototype.startGame = function()
 {
 	this.reset();
 	this.spawnBlock();
-}
+};
 
 Game.prototype.makeNextBlock = function()
 {
 	this.nextValue = this.startValues[Math.floor(Math.random() * this.startValues.length)];
 	this.html.updateNextBlock();
-}
+};
 
 Game.prototype.spawnBlock = function()
 {
@@ -167,7 +167,7 @@ Game.prototype.getMergeableNeighbors = function(b)
 		res.push(block);
 
 	return res;
-}
+};
 
 Game.prototype.canFall = function(block)
 {
