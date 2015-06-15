@@ -5,6 +5,17 @@ html, body
 	font-family: Arial, sans-serif;
 }
 
+#score
+{
+	font-size: 40px;
+	font-weight: bold;
+}
+
+#topright
+{
+	font-size: 18px;
+}
+
 #topright-button
 {
 	background: #8f7a66;
@@ -23,6 +34,7 @@ html, body
 
 #fs
 {
+	font-size: 18px;
 	color: #bbb;
 }
 

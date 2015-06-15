@@ -23,14 +23,11 @@ html, body
 {
 	display: inline-block;
 	line-height: 40px;
-	font-size: 40px;
-	font-weight: bold;
 }
 
 #topright
 {
 	float: right;
-	font-size: 18px;
 	text-align: center;
 }
 
@@ -47,14 +44,10 @@ html, body
 #topright-button
 {
 	display: inline-block;
-
 	height: 40px;
 	border-radius: 6px;
-	
 	padding: 0 15px;
-	
 	line-height: 40px;
-
 	cursor: pointer;
 }
 
@@ -94,7 +87,6 @@ html, body
 #fs
 {
 	margin-top: 10px;
-	font-size: 18px;
 	text-align: center;
 	cursor: pointer;
 }
