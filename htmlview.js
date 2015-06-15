@@ -137,13 +137,29 @@ HTMLView.prototype.setupInput = function()
 		thiz.container.style.marginTop = margin + "px";
 
 		if(!isFullScreen())
-			thiz.fsButton.style.visibility = "visible";
+			thiz.fsButton.style.display = "inline-block";
 	};
 
 	this.fsButton.onclick = function()
 	{
-		thiz.fsButton.style.visibility = "hidden";
+		thiz.fsButton.style.display = "none";
 		goFullScreen();
+	};
+
+	this.theme = "eltzi";
+	var themeButton = document.querySelector("#theme");
+	themeButton.onclick = function()
+	{
+		if(thiz.theme == "eltzi")
+		{
+			setStyle("classic");
+			thiz.theme = "classic";
+		}
+		else
+		{
+			setStyle("eltzi");
+			thiz.theme = "eltzi";
+		}
 	};
 };
 
