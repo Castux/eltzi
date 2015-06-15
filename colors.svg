@@ -60,19 +60,19 @@
        x="345.47217"
        y="24.026913" />
     <rect
-       y="29.392595"
-       x="56.568546"
+       y="128.38754"
+       x="56.568542"
        height="71.287315"
        width="208.09143"
        id="rect8070"
-       style="fill:#fae58f;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1" />
+       style="fill:#efc781;fill-opacity:1;stroke:none" />
     <rect
-       style="fill:#f8ecc9;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1"
+       style="fill:#f8ecc9;fill-opacity:1;stroke:none"
        id="rect8072"
        width="208.09143"
        height="71.287315"
-       x="58.588852"
-       y="121.63142" />
+       x="54.548244"
+       y="34.758297" />
     <rect
        y="209.82957"
        x="56.568546"
@@ -156,6 +156,6 @@
        height="71.287315"
        width="208.09143"
        id="rect8070-1"
-       style="fill:#e5e5e2;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1" />
+       style="fill:#faf8ef;fill-opacity:0.87234044;stroke:none;stroke-linecap:square;stroke-opacity:1" />
   </g>
 </svg>
