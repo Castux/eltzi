@@ -1,10 +1,10 @@
 html, body
 {
-  margin: 0;
-  padding: 0;
-  background: #faf8ef;
-  color: #776e65;
-  font-family: 'Gentium Book Basic', serif;
+	margin: 0;
+	padding: 0;
+	background: #faf8ef;
+	color: #343838;
+	font-family: 'Gentium Book Basic', serif;
 }
 
 #container
@@ -68,7 +68,7 @@ html, body
 	display: inline-block;
 	margin: 300px auto;
 	position: relative;
-	height: 100px;
+	height: 110px;
 	
 	left: 110%;
 	transition: left 0.4s;
@@ -78,9 +78,9 @@ html, body
 	z-index: 100;
 
 	border-radius: 20px;
-	background: rgba(238, 228, 218, 0.73);
+	background: rgba(250, 248, 239, 0.8);
 
-	line-height: 100px;
+	line-height: 110px;
 	font-size: 40px;
 	font-weight: bold;
 }
@@ -120,17 +120,15 @@ html, body
 	z-index: 2;
 
 	transition: left 0.1s, top 0.1s;
-
-	color: #343838;
 }
 
 .block-2
 {
-	background: #a79c8e;
+	background: #f8ecc9;
 }
 .block-4
 {
-	background: #f8ecc9;
+	background: #efc781;
 }
 .block-8
 {

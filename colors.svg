@@ -14,7 +14,7 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="colors.svg">
   <defs
      id="defs4" />
@@ -26,14 +26,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="227.29095"
+     inkscape:cx="-87.876642"
      inkscape:cy="451.45888"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1018"
-     inkscape:window-x="-8"
+     inkscape:window-width="2560"
+     inkscape:window-height="1378"
+     inkscape:window-x="2552"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -65,7 +65,7 @@
        height="71.287315"
        width="208.09143"
        id="rect8070"
-       style="fill:#a79c8e;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1" />
+       style="fill:#fae58f;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1" />
     <rect
        style="fill:#f8ecc9;fill-opacity:1;stroke:none;stroke-linecap:square;stroke-opacity:1"
        id="rect8072"
