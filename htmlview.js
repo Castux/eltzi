@@ -288,3 +288,15 @@ function goFullScreen()
 	else if (doc.msRequestFullScreen)
 		doc.msRequestFullScreen();
 };
+
+function setStyle(name)
+{
+	var links = document.getElementsByTagName("link");
+	for(var i = 0 ; i < links.length ; i++)
+	{
+		if(links[i].rel.indexOf("stylesheet") != -1 && links[i].title)
+		{
+			links[i].disabled = (links[i].title != name);
+		}
+	}
+};
