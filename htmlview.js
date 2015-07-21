@@ -35,6 +35,7 @@ HTMLView = function(game)
 	this.running = false;
 	this.pause = false;
 	this.nextFall = null;
+	this.now = 0;
 
 	this.setupInput();
 	this.setupUpdate();
@@ -230,6 +231,8 @@ HTMLView.prototype.setupUpdate = function()
 
 HTMLView.prototype.update = function(ts)
 {
+	this.now = ts;
+
 	if(!this.running || this.pause)
 		return;
 
@@ -242,7 +245,7 @@ HTMLView.prototype.update = function(ts)
 
 HTMLView.prototype.setNextFall = function(ms)
 {
-	this.nextFall = window.performance.now() + ms;
+	this.nextFall = this.now + ms;
 };
 
 HTMLView.prototype.updateScore = function()
