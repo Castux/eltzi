@@ -25,6 +25,9 @@ Eltzi's Tetris 2048 is licensed under the [MIT License](LICENSE.txt). Distribute
 
 `animframe_polyfill.js` and classic theme copied from [2048][2048], MIT License.
 
+`performance_polyfill.js` by [Paul Irish][irish], MIT license.
+
 Gentium Book Basic font from [Google Fonts](https://www.google.com/fonts/specimen/Gentium+Book+Basic), distributed under the [SIL Open Font License, 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
 [2048]: https://github.com/gabrielecirulli/2048
+[irish]: https://gist.github.com/paulirish/5438650
