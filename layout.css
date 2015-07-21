@@ -109,7 +109,10 @@ html, body
 	line-height: 100px;
 
 	z-index: 2;
+}
 
+.transitioning
+{
 	transition: left 0.1s, top 0.1s;
 }
 

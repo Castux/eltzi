@@ -190,9 +190,16 @@ HTMLView.prototype.makeBlock = function(block)
 
 HTMLView.prototype.placeBlock = function(block, merge)
 {
+	var firstTime = block.dom.style.left == "";
+
 	var width = block.dom.offsetWidth;
 	block.dom.style.left = block.v * width + "px";
 	block.dom.style.top = block.u * width + "px";
+
+	if(!firstTime)
+	{
+		block.dom.classList.add("transitioning");
+	}
 
 	if(merge)
 	{
